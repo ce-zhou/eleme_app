@@ -1,0 +1,39 @@
+@import './base.css';
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  max-width: 750px;
+  margin: 0 auto!important;
+  line-height: 1.5;
+  font-family: Arial, Helvetica;
+  background: #F2F2F2;
+}
+
+#app {
+  height: 100%;
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+/* 当屏幕大小超过750px时，将html中的字体大小固定为75px */
+/* @media (min-width:750px) {
+  html{
+    font-size: 75px!important;
+  }
+} */
