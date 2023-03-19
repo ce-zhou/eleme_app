@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul v-if="shopMes.shopMessage">
     <li v-for="item in shopMes.shopMessage" :key="item.id" class="shop_box" @click="goShop(item.id)">
       <div>
         <img
@@ -58,6 +58,9 @@
       </div>
     </li>
   </ul>
+  <div class="loading" v-else>
+    <img src="../../images/load.gif" alt="">
+  </div>
 </template>
 
 <script setup>
@@ -123,6 +126,11 @@ watch(()=> prop.confirmSelect, ()=> {
   align-items: center;
   padding: 20px 0;
   border-bottom: 1px solid #eee;
+}
+.loading {
+  img {
+    width: 100px;
+  }
 }
 .shop_img {
   width: 130px;

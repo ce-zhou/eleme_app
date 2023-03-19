@@ -8,7 +8,7 @@
       </div>
       <div class="guess_city">
         <router-link :to="`/city/${city.guessCityid}`">
-          <span>{{ city.guessCity+city.cityPos }}</span>
+          <span>{{ city.guessCity + city.cityPos }}</span>
           <van-icon name="arrow" />
         </router-link>
         <div @click="rePos">
@@ -61,8 +61,8 @@ const city = reactive({
   guessCityid: "", //当前城市id
   hotcity: [], //热门城市列表
   groupcity: {}, //所有城市列表
-  cityPos: '',
-  sortGroupCity: {}
+  cityPos: "",
+  sortGroupCity: {},
 });
 
 const { proxy } = getCurrentInstance();
@@ -80,7 +80,7 @@ onMounted(async () => {
   // 所有城市
   const { data: res3 } = await pos.groupCity();
   city.groupcity = res3;
-  city.cityPos = getStore('city')
+  city.cityPos = getStore("city");
   setStore("name", city.guessCity);
 });
 

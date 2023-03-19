@@ -1,6 +1,6 @@
 <template>
   <Footer />
-  <div class="main">
+  <div class="main" v-if="foods.loading">
     <div class="head">
       <div class="home_left" @click="position">
         <span>{{ city.cityName }}</span>
@@ -49,19 +49,20 @@
       <ShopList :geohash="city.geohash"></ShopList>
     </div>
   </div>
+  <div class="main skeleton" v-else>
+    <Skeleton />
+  </div>
   <Header />
-  <Loading v-if="isLoading"></Loading>
 </template>
 
 <script setup>
 import Footer from "../../components/footer/Footer.vue";
 import Header from "../../components/header/Header.vue";
 import ShopList from "../../components/common/ShopList.vue";
+import Skeleton from "../../components/Skeleton.vue";
 import { useRouter, useRoute } from "vue-router";
 import { onMounted, reactive, getCurrentInstance, onBeforeMount } from "vue";
 import { useStore } from "vuex";
-import Loading from "../../components/loading/index.vue";
-import Skeleton from "../../components/common/Skeleton.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -69,12 +70,12 @@ const store = useStore();
 const { proxy } = getCurrentInstance();
 const food = proxy.$http.food;
 const pos = proxy.$http.position;
-const isLoading = store.state.load.isLoading;
 let city = reactive({
   cityName: "",
   geohash: route.query.geohash,
 });
 let foods = reactive({
+  loading: null,
   foodList: [],
   imgBaseUrl: "https://fuss10.elemecdn.com", //图片域名地址
 });
@@ -122,7 +123,7 @@ onMounted(async () => {
   getCity();
   // 获取食物分类列表
   const { data: res } = await food.getFoodCate();
-  console.log(res);
+  foods.loading = res
   let resArr = [...res]; // 返回一个新的数组
   let foodArr = [];
   for (let i = 0, j = 0; i < res.length; i += 8, j++) {
@@ -135,6 +136,9 @@ onMounted(async () => {
 <style lang="less" scoped>
 .main {
   padding: 80px 10px;
+}
+.skeleton {
+  background-color: #fff;
 }
 .head {
   display: flex;

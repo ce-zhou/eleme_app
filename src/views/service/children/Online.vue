@@ -133,12 +133,16 @@ import OtherChat from "../../../components/common/OtherChat.vue";
 import { reactive, getCurrentInstance, onUpdated } from "vue";
 import { useStore } from "vuex";
 import dialog from "../../../plugins/robotDialog";
+import useState from '../../../plugins/useState'
 
 const store = useStore();
 const { proxy } = getCurrentInstance();
 const robot = proxy.$http.robot;
 const socket = proxy.$socket;
 const userInfo = store.state.login.userInfo;
+const storeState = useState({
+  userInfo: (state)=> state.login.userInfo
+})
 const online = reactive({
   problem: [
     { title: "怎么催单？", user: "mine" },
@@ -158,24 +162,6 @@ const online = reactive({
   appear: false, // 判断人工客服是否出现
   msgList: [],
   exeute: true,
-});
-
-socket.connect();
-socket.emit(
-  "login",
-  {
-    name: userInfo.username,
-    img: online.imgBaseUrl + userInfo.avatar,
-  },
-  (results) => {
-    console.log(results);
-  }
-);
-socket.on("login", (data) => {
-  data.filter((item) => {
-    item.name = "best";
-  });
-  window.sessionStorage.setItem("list", data[0].img);
 });
 
 socket.on("messageList", (data) => {
@@ -251,6 +237,23 @@ function otherProblem() {
 // 转人工后发起websocket对话连接
 function toPerson() {
   online.appear = true;
+  socket.connect();
+  socket.emit(
+    "login",
+    {
+      name: userInfo.username,
+      img: online.imgBaseUrl + userInfo.avatar,
+    },
+    (results) => {
+      console.log(results);
+    }
+  );
+  socket.on("login", (data) => {
+    data.filter((item) => {
+      item.name = "best";
+    });
+    window.sessionStorage.setItem("list", data[0].img);
+  });
 }
 
 // 是滚动条始终保持最底部

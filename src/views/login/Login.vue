@@ -90,23 +90,6 @@ async function onSubmit() {
   } else {
     // 把用户信息存储到vuex中
     store.commit("login/setUserInfo", login.userInfo);
-    socket.connect();
-    socket.emit(
-      "login",
-      {
-        name: login.username,
-        img: "https://elm.cangdu.org/img/" + userInfo.avatar,
-      },
-      (results) => {
-        console.log(results);
-      }
-    );
-    socket.on("login", (data) => {
-      data.filter((item) => {
-        item.name = 'best'
-      });
-      window.sessionStorage.setItem('list', data[0].img)
-    });
     router.push("/mine");
   }
 }

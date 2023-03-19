@@ -1,5 +1,6 @@
-<template>
-  <div class="container">
+<template >
+  <div v-if="shop.loading">
+    <div class="container">
     <div class="top">
       <div class="shop_container">
         <div class="left">
@@ -210,15 +211,20 @@
     <van-action-bar-icon icon="balance-pay" text="价钱" :badge="shop.money" />
     <van-action-bar-button type="danger" text="去结算" @click="next" />
   </van-action-bar>
+  </div>
+  <div class="skeleton" v-else>
+    <Skeleton/>
+  </div>
 </template>
 
 <script setup>
-import { reactive, getCurrentInstance, ref } from "vue";
+import { reactive, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import defaultImage from "../../images/error.jpeg";
 import { sendRequest } from "../../plugins/promiseall";
 import { getImgPath } from "../../plugins/mUtils";
+import Skeleton from "../../components/Skeleton.vue";
 
 // console.log(sendRequest);
 const route = useRoute();
@@ -230,6 +236,7 @@ const shopData = proxy.$http.shop;
 const latitude = store.state.site.latitude;
 const longitude = store.state.site.longitude;
 const shop = reactive({
+  loading: null,
   geohash: "", //geohash位置信息
   shopId: "", //商店id值
   menuList: [], //食品列表
@@ -260,7 +267,7 @@ async function initData() {
   ];
 
   sendRequest(tasks, 2).then((res) => {
-    console.log(res);
+    shop.loading = res
     shop.menuList = res[0];
     shop.shopDetailData = res[1];
     shop.ratingList = res[2];
@@ -332,6 +339,9 @@ ul {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+.skeleton {
+  background-color: #fff;
 }
 .top {
   position: fixed;

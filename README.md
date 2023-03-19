@@ -1,29 +1,54 @@
-# elme_app
+## 项目介绍
 
-This template should help get you started developing with Vue 3 in Vite.
+该项目的移动端是根据github上的一个大佬的项目做的，后端接口用的是他的后端接口，[他的项目链接](https://github.com/bailicangdu/vue2-elm)
 
-## Recommended IDE Setup
+对于这个项目，我使用的技术栈是vue3+vite+vuex+vue-router+vant-ui+axios...
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+由于大佬好像没有做客服聊天的功能，我查阅资料使用socket.io技术，完成了客服聊天的过程。自己做了PC端的客服界面，并且自己写了PC端客服聊天界面的后端接口。在下面附上这两个项目的地址：
 
-## Customize configuration
+PC端客服界面：[点我哦](https://github.com/ce-zhou/elme_service)
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+PC端界面的后端接口: [快点我](https://github.com/ce-zhou/eleme_socket)
 
-## Project Setup
+如何运行项目？
 
-```sh
-npm install
+先将项目下载到本地然后下载全部的包
+
+```
+npm init
 ```
 
-### Compile and Hot-Reload for Development
+由于该项目的聊天功能是用上面的PC端界面后端接口实现的，还需要先启动后端接口项目
 
-```sh
+```
+nodemon main.js
+```
+
+最后启动我们的移动端项目
+
+```
 npm run dev
 ```
 
-### Compile and Minify for Production
+附上移动端的几个页面的截图
 
-```sh
-npm run build
-```
+
+
+<img src="C:\Users\86158\Pictures\Saved Pictures\eleme_02.png" alt="eleme_02" style="zoom: 67%;" />
+
+<img src="C:\Users\86158\Pictures\Saved Pictures\eleme_04.png" alt="eleme_04" style="zoom:67%;" />
+
+<img src="C:\Users\86158\Pictures\Saved Pictures\eleme_05.png" alt="eleme_05" style="zoom:67%;" />
+
+<img src="C:\Users\86158\Pictures\Saved Pictures\eleme_04.png" alt="eleme_04" style="zoom:67%;" />
+
+<img src="C:\Users\86158\Pictures\Saved Pictures\eleme_01.png" alt="eleme_01" style="zoom:67%;" />
+
+<img src="C:\Users\86158\Pictures\Saved Pictures\eleme_06.png" alt="eleme_06" style="zoom:67%;" />
+
+<img src="C:\Users\86158\Pictures\Saved Pictures\elme_07.png" alt="elme_07" style="zoom:67%;" />
+
+<img src="C:\Users\86158\Pictures\Saved Pictures\elme_08.png" alt="elme_08" style="zoom:67%;" />
+
+
+
